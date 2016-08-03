@@ -17,20 +17,20 @@ module.exports = function Get(app) {
 	// Route handles GET-type HTTP requests.
 	self.routeHandler = function (req, res) {
 
-	     try {
+		 try {
 
-	     	// Entry log:
-	        console.log("Enter: Get.routeHandler.\n  req.body: " + 
-	        	JSON.stringify(req.body) +
-	        	",\n  req.query: " +
-	        	JSON.stringify(req.query));
+			// Entry log:
+			console.log("Enter: Get.routeHandler.\n  req.body: " + 
+				JSON.stringify(req.body) +
+				",\n  req.query: " +
+				JSON.stringify(req.query));
 
-	        // Extract the mongo collection.
-	        var mongoCollection = self.app.get("mongoCollection");
+			// Extract the mongo collection.
+			var mongoCollection = self.app.get("mongoCollection");
 
-	        // Extract the id, the existence of which determines if this is a
-	        // "get-all-id's"-type request or a "get single item"-type request.
-	        var strMongoId = req.query.mongoId;
+			// Extract the id, the existence of which determines if this is a
+			// "get-all-id's"-type request or a "get single item"-type request.
+			var strMongoId = req.query.mongoId;
 			if (strMongoId) {
 
 				// Find the document.
@@ -47,34 +47,34 @@ module.exports = function Get(app) {
 							// Return error.
 							console.log("Error: " + 
 								err);
-				            res.json({
+							res.json({
 
-				                success: false,
-				                payload: err
-				            });
+								success: false,
+								payload: err
+							});
 						} else if (doc) {
 
 							// ...return document.
 							console.log("Success: " + 
 								JSON.stringify(doc));
-				            res.json({
+							res.json({
 
-				                success: true,
-				                payload: doc
-				            });
-				        } else {
+								success: true,
+								payload: doc
+							});
+						} else {
 
 							// Return error.
 							console.log("Document not found: " + 
 								strMongoId);
-				            res.json({
+							res.json({
 
-				                success: false,
-				                payload: "Document not found: " + 
-				                strMongoId
-				            });
-				        }
-				    });
+								success: false,
+								payload: "Document not found: " + 
+								strMongoId
+							});
+						}
+					});
 			} else {
 
 				// Get all id's.
@@ -88,12 +88,12 @@ module.exports = function Get(app) {
 						// Return error.
 						console.log("Error: " + 
 							err);
-			            res.json({
+						res.json({
 
-			                success: false,
-			                payload: err
-			            });
-			            return;
+							success: false,
+							payload: err
+						});
+						return;
 					}
 					if (doc != null) {
 
@@ -107,24 +107,24 @@ module.exports = function Get(app) {
 						// Return collection of id's.
 						console.log("Success: " + 
 							JSON.stringify(arrayIds));
-			            res.json({
+						res.json({
 
-			                success: true,
-			                payload: arrayIds
-			            });
+							success: true,
+							payload: arrayIds
+						});
 					}
 				});
 			}
-	     } catch(e) {
+		 } catch(e) {
 
 			// Return error.
 			console.log("Error: " + 
 				e.message);
-	        res.json({
+			res.json({
 
-	            success: false,
-	            payload: e.message
-	        });
-	     }
+				success: false,
+				payload: e.message
+			});
+		 }
 	 };
 };

@@ -14,19 +14,19 @@ module.exports = function Post(app) {
 	// Route handles GET-type HTTP requests.
 	self.routeHandler = function (req, res) {
 
-	     try {
+		 try {
 
-	     	// Entry log:
-	        console.log("Enter: Post.routeHandler.\n  req.body: " + 
-	        	JSON.stringify(req.body) +
-	        	",\n  req.query: " +
-	        	JSON.stringify(req.query));
+			// Entry log:
+			console.log("Enter: Post.routeHandler.\n  req.body: " + 
+				JSON.stringify(req.body) +
+				",\n  req.query: " +
+				JSON.stringify(req.query));
 
-	        // Extract the mongo collection.
-	        var mongoCollection = self.app.get("mongoCollection");
+			// Extract the mongo collection.
+			var mongoCollection = self.app.get("mongoCollection");
 
-	        // Insert new document then return to client.
-	        // How to handle error?  Not sure....
+			// Insert new document then return to client.
+			// How to handle error?  Not sure....
 			console.log("Insert: " + 
 				JSON.stringify(req.body));
 			mongoCollection.insertOne(req.body).then(function (r) {
@@ -35,22 +35,22 @@ module.exports = function Post(app) {
 				console.log(JSON.stringify(r));
 
 				// Return standard result object.
-		        res.json({
+				res.json({
 
-		            success: true,
-		            payload: req.body
-		        });
+					success: true,
+					payload: req.body
+				});
 			});
-	     } catch(e) {
+		 } catch(e) {
 
 			// Return error.
 			console.log("Error: " + 
 				e.message);
-	        res.json({
+			res.json({
 
-	            success: false,
-	            payload: e.message
-	        });
-	     }
+				success: false,
+				payload: e.message
+			});
+		 }
 	 };
 };

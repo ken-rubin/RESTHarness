@@ -17,22 +17,22 @@ module.exports = function Delete(app) {
 	// Route handles GET-type HTTP requests.
 	self.routeHandler = function (req, res) {
 
-	     try {
+		 try {
 
-	     	// Entry log:
-	        console.log("Enter: Delete.routeHandler.\n  req.body: " + 
-	        	JSON.stringify(req.body) +
-	        	",\n  req.query: " +
-	        	JSON.stringify(req.query));
+			// Entry log:
+			console.log("Enter: Delete.routeHandler.\n  req.body: " + 
+				JSON.stringify(req.body) +
+				",\n  req.query: " +
+				JSON.stringify(req.query));
 
-	        // Extract the mongo collection.
-	        var mongoCollection = self.app.get("mongoCollection");
+			// Extract the mongo collection.
+			var mongoCollection = self.app.get("mongoCollection");
 
-	        // Extract the id to delete.
-	        var strMongoId = req.body.mongoId;
+			// Extract the id to delete.
+			var strMongoId = req.body.mongoId;
 			if (strMongoId) {
 
-		        // Delete existing document.
+				// Delete existing document.
 				console.log("Delete: " + 
 					strMongoId);
 				var wcRet = mongoCollection.remove({
@@ -45,31 +45,31 @@ module.exports = function Delete(app) {
 
 				// Return success.
 				console.log("Success.");
-		        res.json({
+				res.json({
 
-		            success: true,
-		            payload: strMongoId
-		        });
+					success: true,
+					payload: strMongoId
+				});
 			} else {
 
 				// Return error.
 				console.log("Error: No id specified for delete.");
-		        res.json({
+				res.json({
 
-		            success: false,
-		            payload: "No id specified for delete."
-		        });
+					success: false,
+					payload: "No id specified for delete."
+				});
 			}
-	     } catch(e) {
+		 } catch(e) {
 
 			// Return error.
 			console.log("Error: " + 
 				e.message);
-	        res.json({
+			res.json({
 
-	            success: false,
-	            payload: e.message
-	        });
-	     }
+				success: false,
+				payload: e.message
+			});
+		 }
 	 };
 };
