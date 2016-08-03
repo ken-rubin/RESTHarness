@@ -10,163 +10,163 @@ require(["rest"],
 		try {
 
 			// Wire events and such at document load,
-	        // also, define the AJAX-request function.
-	        $(document).ready(function () {
+			// also, define the AJAX-request function.
+			$(document).ready(function () {
 
-	            try {
+				try {
 
-	                // Wire the Get button's click event to SELECT from the server.
-	                $("#GetButton").click(function () {
+					// Wire the Get button's click event to SELECT from the server.
+					$("#GetButton").click(function () {
 
-	                    try {
+						try {
 
-	                        // Request get from server.
+							// Request get from server.
 
-	                        // Empty object query.
-	                        var objectQuery = {};
+							// Empty object query.
+							var objectQuery = {};
 
-	                        // Get id, if non-falsy, assign id.
-	                        var strId = $("#GetIdInput").val();
-	                        if (strId) {
+							// Get id, if non-falsy, assign id.
+							var strId = $("#GetIdInput").val();
+							if (strId) {
 
-	                            objectQuery.mongoId = strId;
-	                        }
+								objectQuery.mongoId = strId;
+							}
 
-	                        // Get either all ids (no id) or the specified object.
-	                        rest.request("GET",
-	                            objectQuery,
-	                            function (objectPayload) {
+							// Get either all ids (no id) or the specified object.
+							rest.request("GET",
+								objectQuery,
+								function (objectPayload) {
 
-	                                try {
+									try {
 
-	                                    $("#GetOutputTextArea").text(JSON.stringify(objectPayload));
-	                                } catch (e) {
+										$("#GetOutputTextArea").text(JSON.stringify(objectPayload));
+									} catch (e) {
 
-	                                    alert(e.message);
-	                                }
-	                            });
-	                    } catch (e) {
+										alert(e.message);
+									}
+								});
+						} catch (e) {
 
-	                        alert(e.message);
-	                    }
-	                });
+							alert(e.message);
+						}
+					});
 
-	                // Wire the Post button's click event to INSERT into the server.
-	                $("#PostButton").click(function () {
+					// Wire the Post button's click event to INSERT into the server.
+					$("#PostButton").click(function () {
 
-	                    try {
+						try {
 
-	                        // Request post to server.
-	                        rest.request("POST",
-	                            {
+							// Request post to server.
+							rest.request("POST",
+								{
 
-	                                firstName: $("#PostFirstNameInput").val(), 
-	                                lastName: $("#PostLastNameInput").val(),
-	                                eMail: $("#PostEMailInput").val()
-	                            },
-	                            function (objectPayload) {
+									firstName: $("#PostFirstNameInput").val(), 
+									lastName: $("#PostLastNameInput").val(),
+									eMail: $("#PostEMailInput").val()
+								},
+								function (objectPayload) {
 
-	                                try {
+									try {
 
-	                                    $("#PostOutputTextArea").text(JSON.stringify(objectPayload));
-	                                } catch (e) {
+										$("#PostOutputTextArea").text(JSON.stringify(objectPayload));
+									} catch (e) {
 
-	                                    alert(e.message);
-	                                }
-	                            });
-	                    } catch (e) {
+										alert(e.message);
+									}
+								});
+						} catch (e) {
 
-	                        alert(e.message);
-	                    }
-	                });
+							alert(e.message);
+						}
+					});
 
-	                // Wire the Delete button's click event to DELETE on the server.
-	                $("#DeleteButton").click(function () {
+					// Wire the Delete button's click event to DELETE on the server.
+					$("#DeleteButton").click(function () {
 
-	                    try {
+						try {
 
-	                        // Null out object query.
-	                        var objectQuery = null;
+							// Null out object query.
+							var objectQuery = null;
 
-	                        // Get id, if non-falsy, allocate query object and assign id.
-	                        var strId = $("#DeleteIdInput").val();
+							// Get id, if non-falsy, allocate query object and assign id.
+							var strId = $("#DeleteIdInput").val();
 
-	                        // Delete object.
-	                        rest.request("DELETE",
-	                            { 
+							// Delete object.
+							rest.request("DELETE",
+								{ 
 
-	                                mongoId: strId 
-	                            },
-	                            function (objectPayload) {
+									mongoId: strId 
+								},
+								function (objectPayload) {
 
-	                                try {
+									try {
 
-	                                    $("#DeleteOutputTextArea").text(JSON.stringify(objectPayload));
-	                                } catch (e) {
+										$("#DeleteOutputTextArea").text(JSON.stringify(objectPayload));
+									} catch (e) {
 
-	                                    alert(e.message);
-	                                }
-	                            });
-	                    } catch (e) {
+										alert(e.message);
+									}
+								});
+						} catch (e) {
 
-	                        alert(e.message);
-	                    }
-	                });
+							alert(e.message);
+						}
+					});
 
-	                // Wire the Put button's click event to UPDATE on the server.
-	                $("#PutButton").click(function () {
+					// Wire the Put button's click event to UPDATE on the server.
+					$("#PutButton").click(function () {
 
-	                    try {
+						try {
 
-	                        // Null out object query.
-	                        var objectQuery = null;
+							// Null out object query.
+							var objectQuery = null;
 
-	                        // Get id, if non-falsy, allocate query object and assign id.
-	                        var strId = $("#PutIdInput").val();
-	                        var strFirstName = $("#PutFirstNameInput").val();
-	                        var strLastName = $("#PutLastNameInput").val();
-	                        var strEMail = $("#PutEMailInput").val();
+							// Get id, if non-falsy, allocate query object and assign id.
+							var strId = $("#PutIdInput").val();
+							var strFirstName = $("#PutFirstNameInput").val();
+							var strLastName = $("#PutLastNameInput").val();
+							var strEMail = $("#PutEMailInput").val();
 
-	                        var objectBody = {
+							var objectBody = {
 
-	                            mongoId: strId
-	                        };
-	                        if (strFirstName) {
+								mongoId: strId
+							};
+							if (strFirstName) {
 
-	                            objectBody.firstName = strFirstName;
-	                        }
-	                        if (strLastName) {
+								objectBody.firstName = strFirstName;
+							}
+							if (strLastName) {
 
-	                            objectBody.lastName = strLastName;
-	                        }
-	                        if (strEMail) {
+								objectBody.lastName = strLastName;
+							}
+							if (strEMail) {
 
-	                            objectBody.eMail = strEMail;
-	                        }
+								objectBody.eMail = strEMail;
+							}
 
-	                        // Delete object.
-	                        rest.request("PUT",
-	                            objectBody,
-	                            function (objectPayload) {
+							// Delete object.
+							rest.request("PUT",
+								objectBody,
+								function (objectPayload) {
 
-	                                try {
+									try {
 
-	                                    $("#PutOutputTextArea").text(JSON.stringify(objectPayload));
-	                                } catch (e) {
+										$("#PutOutputTextArea").text(JSON.stringify(objectPayload));
+									} catch (e) {
 
-	                                    alert(e.message);
-	                                }
-	                            });
-	                    } catch (e) {
+										alert(e.message);
+									}
+								});
+						} catch (e) {
 
-	                        alert(e.message);
-	                    }
-	                });
-	            } catch (e) {
+							alert(e.message);
+						}
+					});
+				} catch (e) {
 
-	                alert(e.message);
-	            }
-	        });
+					alert(e.message);
+				}
+			});
 		} catch (e) {
 
 			alert(e.message);
