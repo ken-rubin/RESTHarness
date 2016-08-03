@@ -9,7 +9,7 @@ require(["rest"],
 	
 		try {
 
-		    // Wire events and such at document load,
+			// Wire events and such at document load,
 	        // also, define the AJAX-request function.
 	        $(document).ready(function () {
 
