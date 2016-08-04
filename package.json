@@ -1,15 +1,15 @@
 {
-    "name": "dodo.js",
-    "version": "0.0.1",
-    "private": true,
-    "scripts": {
+	"name": "dodo.js",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
 
-        "start": "node app.js 8080 public rest"
-    },
-    "dependencies": {
+		"start": "node app.js 8080 public rest"
+	},
+	"dependencies": {
 
-        "express": "3.4.0",
-        "body-parser": "^1.15.2",
-        "mongodb": "*"
-    }
+		"express": "3.4.0",
+		"body-parser": "^1.15.2",
+		"mongodb": "*"
+	}
 }

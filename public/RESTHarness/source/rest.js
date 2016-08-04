@@ -1,7 +1,7 @@
 ////////////////////////////////////////
 // rest.js -- REST API interface module.
 //
-// Returns module instance.
+// Returns object instance.
 //
 
 "use strict";
@@ -17,10 +17,88 @@ define(function () {
 
 				var self = this;			// Über closure.
 
+				///////////////////////////////	
+				// Public methods
+
+				// Get/Select.
+				self.select = function (objectParameters,
+					functionCallbackSuccess,
+					functionCallbackError) {
+
+					try {
+
+						// Call down to private method.
+						return m_functionRequest("GET",
+							objectParameters,
+							functionCallbackSuccess,
+							functionCallbackError);
+					} catch (e) {
+
+						return e;
+					}
+				};
+
+				// Post/Insert.
+				self.insert = function (objectBody,
+					functionCallbackSuccess,
+					functionCallbackError) {
+
+					try {
+
+						// Call down to private method.
+						return m_functionRequest("POST",
+							objectBody,
+							functionCallbackSuccess,
+							functionCallbackError);
+					} catch (e) {
+
+						return e;
+					}
+				};
+
+				// Put/Update.
+				self.update = function (objectBody,
+					functionCallbackSuccess,
+					functionCallbackError) {
+
+					try {
+
+						// Call down to private method.
+						return m_functionRequest("PUT",
+							objectBody,
+							functionCallbackSuccess,
+							functionCallbackError);
+					} catch (e) {
+
+						return e;
+					}
+				};
+
+				// Delete/Delete.
+				self.delete = function (objectBody,
+					functionCallbackSuccess,
+					functionCallbackError) {
+
+					try {
+
+						// Call down to private method.
+						return m_functionRequest("DELETE",
+							objectBody,
+							functionCallbackSuccess,
+							functionCallbackError);
+					} catch (e) {
+
+						return e;
+					}
+				};
+
+				///////////////////////////////	
+				// Private methods
+
 				// Function executes an AJAX transaction to the server 
 				// using the specified verb, sending the specified body, 
 				// and calling-back on success to the specified callback.
-				self.request = function (strVerb, objectBody, functionCallback) {
+				var m_functionRequest = function (strVerb, objectBody, functionCallbackSuccess, functionCallbackError) {
 
 					try {
 
@@ -78,20 +156,21 @@ define(function () {
 											objectResponse.success) {
 
 											// ...call the callback, passing the result.
-											functionCallback(objectResponse.payload);
+											functionCallbackSuccess(objectResponse.payload);
 										} else {
 
-											alert(objectResponse.payload);
+											// Error callback payload is a string.
+											functionCallbackError(objectResponse.payload);
 										}
 									} else {
 						
 										// ...else, log error.
-										alert(xmlhr.statusText);
+										functionCallbackError(xmlhr.statusText);
 									}
 								}
 							} catch (e) {
 
-								alert(e.message);
+								functionCallbackError(e.message);
 							}
 						};
 
@@ -101,10 +180,10 @@ define(function () {
 							try {
 
 								// Log error.
-								console.error(xmlhr.statusText);
+								functionCallbackError(xmlhr.statusText);
 							} catch (e) {
 
-								alert(e.message);
+								functionCallbackError(e.message);
 							}
 						};
 
@@ -113,7 +192,7 @@ define(function () {
 					} catch (e) {
 
 						// Log error.
-						alert(e.message);
+						functionCallbackError(e.message);
 					}
 				};
 			} catch (e) {

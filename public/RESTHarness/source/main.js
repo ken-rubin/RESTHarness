@@ -33,8 +33,7 @@ require(["rest"],
 							}
 
 							// Get either all ids (no id) or the specified object.
-							rest.request("GET",
-								objectQuery,
+							var exceptionRet = rest.select(objectQuery,
 								function (objectPayload) {
 
 									try {
@@ -44,7 +43,15 @@ require(["rest"],
 
 										alert(e.message);
 									}
+								},
+								function (strError) {
+
+									alert(e.message);
 								});
+							if (exceptionRet) {
+
+								alert(exceptionRet.message);
+							}
 						} catch (e) {
 
 							alert(e.message);
@@ -57,8 +64,7 @@ require(["rest"],
 						try {
 
 							// Request post to server.
-							rest.request("POST",
-								{
+							var exceptionRet = rest.insert({
 
 									firstName: $("#PostFirstNameInput").val(), 
 									lastName: $("#PostLastNameInput").val(),
@@ -73,7 +79,15 @@ require(["rest"],
 
 										alert(e.message);
 									}
+								},
+								function (strError) {
+
+									alert(strError);
 								});
+							if (exceptionRet) {
+
+								alert(exceptionRet.message);
+							}
 						} catch (e) {
 
 							alert(e.message);
@@ -92,8 +106,7 @@ require(["rest"],
 							var strId = $("#DeleteIdInput").val();
 
 							// Delete object.
-							rest.request("DELETE",
-								{ 
+							var exceptionRet = rest.delete({ 
 
 									mongoId: strId 
 								},
@@ -106,7 +119,15 @@ require(["rest"],
 
 										alert(e.message);
 									}
+								},
+								function (strError) {
+
+									alert(strError);
 								});
+							if (exceptionRet) {
+
+								alert(exceptionRet.message);
+							}
 						} catch (e) {
 
 							alert(e.message);
@@ -144,9 +165,8 @@ require(["rest"],
 								objectBody.eMail = strEMail;
 							}
 
-							// Delete object.
-							rest.request("PUT",
-								objectBody,
+							// Update object.
+							var exceptionRet = rest.update(objectBody,
 								function (objectPayload) {
 
 									try {
@@ -156,7 +176,15 @@ require(["rest"],
 
 										alert(e.message);
 									}
+								},
+								function (strError) {
+
+									alert(strError);
 								});
+							if (exceptionRet) {
+
+								alert(exceptionRet.message);
+							}
 						} catch (e) {
 
 							alert(e.message);
