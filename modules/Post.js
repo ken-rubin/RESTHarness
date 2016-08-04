@@ -38,7 +38,7 @@ module.exports = function Post(app) {
 				res.json({
 
 					success: true,
-					payload: req.body
+					payload: req.body._id
 				});
 			});
 		 } catch(e) {

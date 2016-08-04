@@ -30,15 +30,15 @@ module.exports = function Get(app) {
 
 			// Extract the id, the existence of which determines if this is a
 			// "get-all-id's"-type request or a "get single item"-type request.
-			var strMongoId = req.query.mongoId;
-			if (strMongoId) {
+			var str_id = req.query._id;
+			if (str_id) {
 
 				// Find the document.
 				console.log("mongoCollection.findOne: " + 
-					strMongoId);
+					str_id);
 				mongoCollection.findOne({ 
 
-						"_id": ObjectId(strMongoId)
+						"_id": ObjectId(str_id)
 					}, function(err, doc) {
 
 						// Handle error if err, else...
@@ -66,12 +66,12 @@ module.exports = function Get(app) {
 
 							// Return error.
 							console.log("Document not found: " + 
-								strMongoId);
+								str_id);
 							res.json({
 
 								success: false,
 								payload: "Document not found: " + 
-								strMongoId
+								str_id
 							});
 						}
 					});

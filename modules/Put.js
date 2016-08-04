@@ -29,18 +29,18 @@ module.exports = function Put(app) {
 			var mongoCollection = self.app.get("mongoCollection");
 
 			// Extract the id to delete.
-			var strMongoId = req.body.mongoId;
-			if (strMongoId) {
+			var str_id = req.body._id;
+			if (str_id) {
 
-				// Remove the "fake" id.
-				delete req.body.mongoId;
+				// Remove the "key" id.
+				delete req.body._id;
 
 				// Update existing document.
 				console.log("Update: " + 
-					strMongoId);
+					str_id);
 				mongoCollection.updateOne({
 
-						"_id": ObjectId(strMongoId)
+						"_id": ObjectId(str_id)
 					},
 					{
 
@@ -52,7 +52,7 @@ module.exports = function Put(app) {
 				res.json({
 
 					success: true,
-					payload: strMongoId
+					payload: str_id
 				});
 			} else {
 

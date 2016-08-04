@@ -29,15 +29,15 @@ module.exports = function Delete(app) {
 			var mongoCollection = self.app.get("mongoCollection");
 
 			// Extract the id to delete.
-			var strMongoId = req.body.mongoId;
-			if (strMongoId) {
+			var str_id = req.body._id;
+			if (str_id) {
 
 				// Delete existing document.
 				console.log("Delete: " + 
-					strMongoId);
+					str_id);
 				var wcRet = mongoCollection.remove({
 
-					"_id": ObjectId(strMongoId)
+					_id: ObjectId(str_id)
 				});
 
 				// Output result object.
@@ -48,7 +48,7 @@ module.exports = function Delete(app) {
 				res.json({
 
 					success: true,
-					payload: strMongoId
+					payload: str_id
 				});
 			} else {
 

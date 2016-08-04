@@ -20,19 +20,20 @@ require(["rest"],
 
 						try {
 
-							// Request get from server.
+							// Null object query.
+							var objectQuery = null;
 
-							// Empty object query.
-							var objectQuery = {};
-
-							// Get id, if non-falsy, assign id.
+							// Get id, if non-falsy, allocate object and assign id.
 							var strId = $("#GetIdInput").val();
 							if (strId) {
 
-								objectQuery.mongoId = strId;
+								objectQuery = {
+								
+									_id: strId 
+								};
 							}
 
-							// Get either all ids (no id) or the specified object.
+							// Get either all ids (no _id) or the specified object.
 							var exceptionRet = rest.select(objectQuery,
 								function (objectPayload) {
 
@@ -41,20 +42,20 @@ require(["rest"],
 										$("#GetOutputTextArea").text(JSON.stringify(objectPayload));
 									} catch (e) {
 
-										alert(e.message);
+										$("#GetOutputTextArea").text("Error: " + e.message);
 									}
 								},
 								function (strError) {
 
-									alert(e.message);
+									$("#GetOutputTextArea").text("Error: " + strError);
 								});
 							if (exceptionRet) {
 
-								alert(exceptionRet.message);
+								$("#GetOutputTextArea").text("Error: " + exceptionRet.message);
 							}
 						} catch (e) {
 
-							alert(e.message);
+							$("#GetOutputTextArea").text("Error: " + e.message);
 						}
 					});
 
@@ -77,60 +78,20 @@ require(["rest"],
 										$("#PostOutputTextArea").text(JSON.stringify(objectPayload));
 									} catch (e) {
 
-										alert(e.message);
+										$("#PostOutputTextArea").text("Error: " + e.message);
 									}
 								},
 								function (strError) {
 
-									alert(strError);
+									$("#PostOutputTextArea").text("Error: " + strError);
 								});
 							if (exceptionRet) {
 
-								alert(exceptionRet.message);
+								$("#PostOutputTextArea").text("Error: " + exceptionRet.message);
 							}
 						} catch (e) {
 
-							alert(e.message);
-						}
-					});
-
-					// Wire the Delete button's click event to DELETE on the server.
-					$("#DeleteButton").click(function () {
-
-						try {
-
-							// Null out object query.
-							var objectQuery = null;
-
-							// Get id, if non-falsy, allocate query object and assign id.
-							var strId = $("#DeleteIdInput").val();
-
-							// Delete object.
-							var exceptionRet = rest.delete({ 
-
-									mongoId: strId 
-								},
-								function (objectPayload) {
-
-									try {
-
-										$("#DeleteOutputTextArea").text(JSON.stringify(objectPayload));
-									} catch (e) {
-
-										alert(e.message);
-									}
-								},
-								function (strError) {
-
-									alert(strError);
-								});
-							if (exceptionRet) {
-
-								alert(exceptionRet.message);
-							}
-						} catch (e) {
-
-							alert(e.message);
+							$("#PostOutputTextArea").text("Error: " + e.message);
 						}
 					});
 
@@ -150,7 +111,7 @@ require(["rest"],
 
 							var objectBody = {
 
-								mongoId: strId
+								_id: strId
 							};
 							if (strFirstName) {
 
@@ -174,29 +135,69 @@ require(["rest"],
 										$("#PutOutputTextArea").text(JSON.stringify(objectPayload));
 									} catch (e) {
 
-										alert(e.message);
+										$("#PutOutputTextArea").text("Error: " + e.message);
 									}
 								},
 								function (strError) {
 
-									alert(strError);
+									$("#PutOutputTextArea").text("Error: " + strError);
 								});
 							if (exceptionRet) {
 
-								alert(exceptionRet.message);
+								$("#PutOutputTextArea").text("Error: " + exceptionRet.message);
 							}
 						} catch (e) {
 
-							alert(e.message);
+							$("#PutOutputTextArea").text("Error: " + e.message);
+						}
+					});
+
+					// Wire the Delete button's click event to DELETE on the server.
+					$("#DeleteButton").click(function () {
+
+						try {
+
+							// Null out object query.
+							var objectQuery = null;
+
+							// Get id, if non-falsy, allocate query object and assign id.
+							var strId = $("#DeleteIdInput").val();
+
+							// Delete object.
+							var exceptionRet = rest.delete({ 
+
+									_id: strId 
+								},
+								function (objectPayload) {
+
+									try {
+
+										$("#DeleteOutputTextArea").text(JSON.stringify(objectPayload));
+									} catch (e) {
+
+										$("#DeleteOutputTextArea").text("Error: " + e.message);
+									}
+								},
+								function (strError) {
+
+									$("#DeleteOutputTextArea").text("Error: " + strError);
+								});
+							if (exceptionRet) {
+
+								$("#DeleteOutputTextArea").text("Error: " + exceptionRet.message);
+							}
+						} catch (e) {
+
+							$("#DeleteOutputTextArea").text("Error: " + e.message);
 						}
 					});
 				} catch (e) {
 
-					alert(e.message);
+					alert("Error: " + e.message);
 				}
 			});
 		} catch (e) {
 
-			alert(e.message);
+			alert("Error: " + e.message);
 		}
 	});
