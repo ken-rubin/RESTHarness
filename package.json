@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 
-		"start": "node app.js 8080 public 27017"
+		"start": "sudo node app.js 80 public 27017"
 	},
 	"dependencies": {
 
