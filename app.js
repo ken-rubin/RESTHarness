@@ -29,9 +29,9 @@ var Put = require("./modules/Put");
 ////////////////////////////////////////
 // Read command line arguments.
 console.log("\nRead command line arguments:");
-if (process.argv.length != 5) {
+if (process.argv.length != 6) {
 
-	console.log("Usage: 'node app.js [EXPRESS PORT] [EXPRESS PUBLIC FOLDER] [MONGODB LISTENING PORT]'");
+	console.log("Usage: 'node app.js [EXPRESS PORT] [EXPRESS PUBLIC FOLDER] [MONGODB LISTENING PORT] [MONGODB NAME]'");
 	return;
 }
 
@@ -48,6 +48,10 @@ console.log("MongoDB listening port...");
 var strMongoDBListeningPort = process.argv[4];
 console.log("MongoDB listening port <= " + 
 	strMongoDBListeningPort);
+console.log("MongoDB name...");
+var strMongoDBName = process.argv[5];
+console.log("MongoDB name <= " + 
+	strMongoDBName);
 
 ////////////////////////////////////////
 // Allocate the express web server.
@@ -116,7 +120,9 @@ app.put("/rest",
 // Connect to mongo.
 console.log("\nConnect to mongodb...");
 mongoClient.connect("mongodb://localhost:" + 
-		strMongoDBListeningPort, 
+		strMongoDBListeningPort + 
+		"/" + 
+		strMongoDBName, 
 	function(err, db) {
 
 		if (err) {

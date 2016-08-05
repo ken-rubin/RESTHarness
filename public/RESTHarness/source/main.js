@@ -10,7 +10,7 @@ require(["Restful"],
 		try {
 
 			// Allocate Rest object and initialze to the rest collection.
-			var rest = new Rest("flubber");
+			var rest = new Rest("rest");
 
 			// Wire events and such at document load,
 			// also, define the AJAX-request function.
