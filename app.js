@@ -31,23 +31,23 @@ var Put = require("./modules/Put");
 console.log("\nRead command line arguments:");
 if (process.argv.length != 5) {
 
-	console.log("Usage: 'node app.js [PORT] [PUBLIC FOLDER] [MONGODB COLLECTION NAME]'");
+	console.log("Usage: 'node app.js [EXPRESS PORT] [EXPRESS PUBLIC FOLDER] [MONGODB LISTENING PORT]'");
 	return;
 }
 
-console.log("Port...");
+console.log("Express port...");
 var strPort = process.argv[2];
-console.log("Port <= " + 
+console.log("Express port <= " + 
 	strPort);
-console.log("Public folder...");
+console.log("Express public folder...");
 var strPublicFolder = path.join(path.dirname(require.main.filename), 
 		process.argv[3]);
-console.log("Public folder <= " + 
+console.log("Express public folder <= " + 
 	strPublicFolder);
-console.log("MongoDB collection name...");
-var strMongoDBCollectionName = process.argv[4];
-console.log("MongoDB collection name <= " + 
-	strMongoDBCollectionName);
+console.log("MongoDB listening port...");
+var strMongoDBListeningPort = process.argv[4];
+console.log("MongoDB listening port <= " + 
+	strMongoDBListeningPort);
 
 ////////////////////////////////////////
 // Allocate the express web server.
@@ -115,8 +115,8 @@ app.put("/rest",
 ////////////////////////////////////////
 // Connect to mongo.
 console.log("\nConnect to mongodb...");
-mongoClient.connect("mongodb://localhost:27017/" + 
-		strMongoDBCollectionName, 
+mongoClient.connect("mongodb://localhost:" + 
+		strMongoDBListeningPort, 
 	function(err, db) {
 
 		if (err) {
@@ -126,11 +126,11 @@ mongoClient.connect("mongodb://localhost:27017/" +
 				"\n***ASYNC***\n");
 		}
 
-		console.log("\n***ASYNC***\nGot mongoDB connection object.\n***ASYNC***\n");
+		console.log("\n***ASYNC***\nGot MongoDB object.\n***ASYNC***\n");
 
 		// Store in app so route handlers can access.
-		app.set("mongoCollection", 
-			db.collection(strMongoDBCollectionName));
+		app.set("MongoDB", 
+			db);
 	});
 
 ////////////////////////////////////////

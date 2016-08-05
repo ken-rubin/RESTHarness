@@ -1,5 +1,5 @@
 ////////////////////////////////////////
-// rest.js -- RESTful API interface module.
+// Rest.js -- RESTful API interface module.
 //
 // Returns object instance.
 //
@@ -12,7 +12,7 @@ define(function () {
 	try {
 
 		// Define constructor function.
-		var functionConstructor = function Rest() {
+		var functionConstructor = function Rest(strCollection) {
 
 			try {
 
@@ -169,6 +169,13 @@ define(function () {
 
 					try {
 
+						// Add collection name to all requests:
+						if (!objectBody) {
+
+							objectBody = {};
+						}
+						objectBody.collection = strCollection;
+
 						// Allocate COMM object.
 						var xmlhr = new XMLHttpRequest();
 
@@ -275,8 +282,8 @@ define(function () {
 			}
 		};
 
-		// Return an allocated instance of the constructor function.
-		return new functionConstructor();
+		// Return constructor function.
+		return functionConstructor;
 	} catch (e) {
 
 		// Popup error message.

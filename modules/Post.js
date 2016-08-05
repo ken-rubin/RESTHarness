@@ -23,7 +23,10 @@ module.exports = function Post(app) {
 				JSON.stringify(req.query));
 
 			// Extract the mongo collection.
-			var mongoCollection = self.app.get("mongoCollection");
+			var mongoCollection = self.app.get("MongoDB").collection(req.body.collection);
+
+			// Remove the collection tag--it is a system tag.
+			delete req.body.collection;
 
 			// Insert new document then return to client.
 			// How to handle error?  Not sure....

@@ -4,10 +4,13 @@
 
 "use strict";
 
-require(["rest"],
-	function (rest) {
+require(["Rest"],
+	function (Rest) {
 	
 		try {
+
+			// Allocate Rest object and initialze to the rest collection.
+			var rest = new Rest("flubber");
 
 			// Wire events and such at document load,
 			// also, define the AJAX-request function.

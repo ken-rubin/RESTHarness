@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 
-		"start": "node app.js 8080 public rest"
+		"start": "node app.js 8080 public 27017"
 	},
 	"dependencies": {
 
