@@ -12,7 +12,7 @@ define(function () {
 	try {
 
 		// Define constructor function.
-		var functionConstructor = function Rest(strCollection) {
+		var functionConstructor = function Rest() {
 
 			try {
 
@@ -168,13 +168,6 @@ define(function () {
 				var m_functionRequest = function (strVerb, objectBody, functionCallbackSuccess, functionCallbackError) {
 
 					try {
-
-						// Add collection name to all requests:
-						if (!objectBody) {
-
-							objectBody = {};
-						}
-						objectBody.collection = strCollection;
 
 						// Allocate COMM object.
 						var xmlhr = new XMLHttpRequest();

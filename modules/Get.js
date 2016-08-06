@@ -26,10 +26,7 @@ module.exports = function Get(app) {
 				JSON.stringify(req.query));
 
 			// Extract the mongo collection.
-			var mongoCollection = self.app.get("MongoDB").collection(req.query.collection);
-
-			// Remove the collection tag--it is a system tag.
-			delete req.body.collection;
+			var mongoCollection = self.app.get("MongoDBCollection");
 
 			// Extract the id, the existence of which determines if this is a
 			// "get-all-id's"-type request or a "get single item"-type request.

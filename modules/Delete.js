@@ -26,10 +26,7 @@ module.exports = function Delete(app) {
 				JSON.stringify(req.query));
 
 			// Extract the mongo collection.
-			var mongoCollection = self.app.get("MongoDB").collection(req.body.collection);
-
-			// Remove the collection tag--it is a system tag.
-			delete req.body.collection;
+			var mongoCollection = self.app.get("MongoDBCollection");
 
 			// Extract the id to delete.
 			var str_id = req.body._id;
