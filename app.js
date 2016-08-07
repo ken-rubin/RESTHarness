@@ -103,17 +103,17 @@ console.log("express.static...");
 app.use(express.static(strPublicFolder));
 console.log("express.directory...");
 app.use(express.directory(strPublicFolder));
-console.log("REST POST (/rest)...");
-app.post("/rest", 
+console.log("REST POST...");
+app.post("/" + strMongoDBCollectionName, 
 	post.routeHandler);
-console.log("REST GET (/rest)...");
-app.get("/rest", 
+console.log("REST GET...");
+app.get("/" + strMongoDBCollectionName, 
 	get.routeHandler);
-console.log("REST DELETE (/rest)...");
-app.delete("/rest", 
+console.log("REST DELETE...");
+app.delete("/" + strMongoDBCollectionName, 
 	deleteRoute.routeHandler);
-console.log("REST PUT (/rest)...");
-app.put("/rest", 
+console.log("REST PUT...");
+app.put("/" + strMongoDBCollectionName, 
 	putRoute.routeHandler);
 
 ////////////////////////////////////////

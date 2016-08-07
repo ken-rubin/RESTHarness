@@ -12,11 +12,14 @@ define(function () {
 	try {
 
 		// Define constructor function.
-		var functionConstructor = function Rest() {
+		var functionConstructor = function Rest(strCollection) {
 
 			try {
 
 				var self = this;			// Über closure.
+
+				// Save off the collection name, its encoded in the url.
+				self.collection = strCollection;
 
 				///////////////////////////////	
 				// Public methods
@@ -201,7 +204,9 @@ define(function () {
 
 						// Open the specified verb to the well-known end-point.
 						xmlhr.open(strVerb, 
-							"/rest" + strParameters);
+							"/" + 
+								self.collection + 
+								strParameters);
 
 						// Configure for JSON.
 						xmlhr.setRequestHeader("Content-Type", 
