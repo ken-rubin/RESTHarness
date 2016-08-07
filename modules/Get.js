@@ -7,7 +7,7 @@
 var ObjectId = require("mongodb").ObjectId;
 
 // Define constructor function.
-module.exports = function Get(app) {
+module.exports = function Get(app, strMongoDBCollectionName) {
 
 	var self = this;					// Über closure.
 
@@ -26,7 +26,8 @@ module.exports = function Get(app) {
 				JSON.stringify(req.query));
 
 			// Extract the mongo collection.
-			var mongoCollection = self.app.get("MongoDBCollection");
+			var mongoCollection = self.app.get("MongoDBCollection_" + 
+				strMongoDBCollectionName);
 
 			// Extract the id, the existence of which determines if this is a
 			// "get-all-id's"-type request or a "get single item"-type request.

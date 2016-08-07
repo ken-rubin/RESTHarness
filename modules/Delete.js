@@ -7,7 +7,7 @@
 var ObjectId = require("mongodb").ObjectId;
 
 // Define constructor function.
-module.exports = function Delete(app) {
+module.exports = function Delete(app, strMongoDBCollectionName) {
 
 	var self = this;					// Über closure.
 
@@ -26,7 +26,8 @@ module.exports = function Delete(app) {
 				JSON.stringify(req.query));
 
 			// Extract the mongo collection.
-			var mongoCollection = self.app.get("MongoDBCollection");
+			var mongoCollection = self.app.get("MongoDBCollection_" + 
+				strMongoDBCollectionName);
 
 			// Extract the id to delete.
 			var str_id = req.body._id;

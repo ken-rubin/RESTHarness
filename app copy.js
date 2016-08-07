@@ -12,10 +12,19 @@ console.log("body-parser...");
 var bodyParser = require('body-parser');
 console.log("express...");
 var express = require("express");
+console.log("mongodb...");
+var mongoClient = require('mongodb').MongoClient;
 console.log("path...");
 var path = require("path");
-console.log("Rest...");
-var Rest = require("./modules/Rest");
+
+console.log("Get...");
+var Get = require("./modules/Get");
+console.log("Post...");
+var Post = require("./modules/Post");
+console.log("Delete...");
+var Delete = require("./modules/Delete");
+console.log("Put...");
+var Put = require("./modules/Put");
 
 ////////////////////////////////////////
 // Read command line arguments.
@@ -50,9 +59,17 @@ console.log("\nAllocate express application...");
 var app = express();
 
 ////////////////////////////////////////
-// Allocate the Rest module.
-console.log("\nAllocate Rest module...");
-var rest = new Rest(app);
+// Allocate the rest handlers.
+console.log("\nAllocate rest handlers:");
+
+console.log("Get...");
+var get = new Get(app);
+console.log("Post...");
+var post = new Post(app);
+console.log("Delete...");
+var deleteRoute = new Delete(app);
+console.log("Put...");
+var putRoute = new Put(app);
 
 ////////////////////////////////////////
 // Wire middlewhere.
@@ -87,21 +104,41 @@ app.use(express.static(strPublicFolder));
 console.log("express.directory...");
 app.use(express.directory(strPublicFolder));
 
+console.log("REST POST...");
+app.post("/" + strMongoDBCollectionName, 
+	post.routeHandler);
+console.log("REST GET...");
+app.get("/" + strMongoDBCollectionName, 
+	get.routeHandler);
+console.log("REST DELETE...");
+app.delete("/" + strMongoDBCollectionName, 
+	deleteRoute.routeHandler);
+console.log("REST PUT...");
+app.put("/" + strMongoDBCollectionName, 
+	putRoute.routeHandler);
+
 ////////////////////////////////////////
-// Install Rest module.
-console.log("\nInstall Rest module:");
-var exceptionRet = rest.install(strMongoDBListeningPort,
-	strMongoDBCollectionName,
-	function () {
+// Connect to mongo.
+console.log("\nConnect to mongodb...");
+mongoClient.connect("mongodb://localhost:" + 
+		strMongoDBListeningPort + 
+		"/" + 
+		strMongoDBCollectionName, 
+	function(err, db) {
 
-		console.log("\n***ASYNC***\nRest module installed (" + 
-			strMongoDBCollectionName + 
-			").\n***ASYNC***\n");
+		if (err) {
+
+			return console.log("\n***ASYNC***\nError: " + 
+				err + 
+				"\n***ASYNC***\n");
+		}
+
+		console.log("\n***ASYNC***\nGot MongoDB object.\n***ASYNC***\n");
+
+		// Store in app so route handlers can access.
+		app.set("MongoDBCollection", 
+			db.collection(strMongoDBCollectionName));
 	});
-if (exceptionRet) {
-
-	throw exceptionRet;
-}
 
 ////////////////////////////////////////
 // Start the server.
