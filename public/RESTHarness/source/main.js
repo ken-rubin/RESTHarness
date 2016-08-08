@@ -4,7 +4,7 @@
 
 "use strict";
 
-require(["Restful"],
+require(["Rest"],
 	function (Rest) {
 	
 		try {
